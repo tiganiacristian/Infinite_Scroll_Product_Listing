@@ -47,9 +47,45 @@
 		</div><!--
 		--><div class="sidebar">
 			<div class="filter">
-				
+				<span class="filter-name">Filters</span>
+				<label for="filter-category">Category:</label>
+				<select name="filter-category">
+				  <option value="volvo">All</option>
+				  <option value="saab">Shoes</option>
+				  <option value="mercedes">Shirts & Tops</option>
+				  <option value="audi">Jeans</option>
+				</select>
+				<div class="min-value">
+					<label for="min-value">Min value:</label>
+					<input name="min-value" type="range" min="0" max="100">
+				</div>
+				<div class="max-value">
+					<label for="max-value">Min value:</label>
+					<input name="max-value" type="range" min="0" max="100">
+				</div>
 			</div>
-			<div class="cart"></div>
+			<div class="cart">
+				<span class="cart-name">Cart</span>
+				<div class="cart-products">
+					<span class="cart-product-name">Adidasi mike</span>
+					<span class="cart-product-price">20$</span>
+				</div>
+				<div class="cart-products">
+					<span class="cart-product-name">Adidasi mike</span>
+					<span class="cart-product-price">20$</span>
+				</div>
+				<div class="cart-products">
+					<span class="cart-product-name">Adidasi mike</span>
+					<span class="cart-product-price">20$</span>
+				</div>
+				<div class="total-price-area">
+					<label for="total-price">Total:</label>
+					<span class="total-price">60$</span>
+				</div>
+				<div class="buy-button">
+					<button>Buy it!</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
