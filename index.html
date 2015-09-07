@@ -4,86 +4,54 @@
 	<title>Infinite Scroll Product Listing</title>
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/controller.js"></script>
 </head>
-<body>
-	<div class="wrapped-central">
+<body ng-app="myApp">
+	<div class="wrapped-central" ng-controller="MainController">
 		<div class="product-list">
-				<div class="product">
-					<img class="product-image" src="images/image1.jpg">
-					<p class="product-name">Slapi Mike</p>
-					<span class="product-price">29$</span>
-					<button class="add-to-cart">Add to chart</button>
+				<div class="product" ng-repeat="product in products | filter : search | limitTo : myLimit">
+					<img class="product-image" src="{{product.imageUrl}}">
+					<p class="product-name">{{product.name}}</p>
+					<span class="product-price">{{product.price | currency: undefined:0}}</span>
+					<button class="add-to-cart" ng-click="addProduct(product) ">Add to chart</button>
 				</div>
-				<div class="product">
-					<img class="product-image" src="images/image1.jpg">
-					<p class="product-name">Slapi Mike</p>
-					<span class="product-price">29$</span>
-					<button class="add-to-cart">Add to chart</button>
-				</div>
-				<div class="product">
-					<img class="product-image" src="images/image1.jpg">
-					<p class="product-name">Slapi Mike</p>
-					<span class="product-price">29$</span>
-					<button class="add-to-cart">Add to chart</button>
-				</div>
-				<div class="product">
-					<img class="product-image" src="images/image1.jpg">
-					<p class="product-name">Slapi Mike</p>
-					<span class="product-price">29$</span>
-					<button class="add-to-cart">Add to chart</button>
-				</div>
-				<div class="product">
-					<img class="product-image" src="images/image1.jpg">
-					<p class="product-name">Slapi Mike</p>
-					<span class="product-price">29$</span>
-					<button class="add-to-cart">Add to chart</button>
-				</div>
-				<div class="product">
-					<img class="product-image" src="images/image1.jpg">
-					<p class="product-name">Slapi Mike</p>
-					<span class="product-price">29$</span>
-					<button class="add-to-cart">Add to chart</button>
+				<div id="loader">
+					<img src="images/loader.gif" ng-show="myLimit = products.length">
+					LOADING...
 				</div>
 		</div><!--
 		--><div class="sidebar">
 			<div class="filter">
 				<span class="filter-name">Filters</span>
 				<label for="filter-category">Category:</label>
-				<select name="filter-category">
-				  <option value="volvo">All</option>
-				  <option value="saab">Shoes</option>
-				  <option value="mercedes">Shirts & Tops</option>
-				  <option value="audi">Jeans</option>
+				<select data-ng-model="search.category" name="filter-category">
+				  <option value="">All</option>
+				  <option value="shoes">Shoes</option>
+				  <option value="shirts & tops">Shirts & Tops</option>
+				  <option value="jeans">Jeans</option>
 				</select>
 				<div class="min-value">
 					<label for="min-value">Min value:</label>
-					<input name="min-value" type="range" min="0" max="100">
+					<input name="min-value" type="range" min="0" max="50" value="0" step="1" oninput="showValue(this.value)" />
+					<span id="range">0</span>
 				</div>
 				<div class="max-value">
-					<label for="max-value">Min value:</label>
-					<input name="max-value" type="range" min="0" max="100">
+					<label for="max-value">Max value:</label>
+					<input name="min-value" type="range" min="50" max="100" value="100" step="1" oninput="showMaxValue(value)" />
+					<span id="rangeMax">100</span>
 				</div>
 			</div>
 			<div class="cart">
 				<span class="cart-name">Cart</span>
-				<div class="cart-products">
-					<span class="cart-product-name">Adidasi mike</span>
-					<span class="cart-product-price">20$</span>
+				<div class="cart-products" ng-repeat = "cartProduct in cartProducts">
+					<span class="cart-product-name">{{cartProduct.name}} <span> X {{cartProduct.count}}</span></span>
+					<span class="cart-product-price">{{cartProduct.price}}$</span>
 				</div>
-				<div class="cart-products">
-					<span class="cart-product-name">Adidasi mike</span>
-					<span class="cart-product-price">20$</span>
-				</div>
-				<div class="cart-products">
-					<span class="cart-product-name">Adidasi mike</span>
-					<span class="cart-product-price">20$</span>
-				</div>
-				<div class="total-price-area">
-					<label for="total-price">Total:</label>
-					<span class="total-price">60$</span>
-				</div>
+				<br><span><span>Total:</span>{{ getTotal() }} </span>
 				<div class="buy-button">
-					<button>Buy it!</button>
+					<button ng-click="buyProducts()">Buy it!</button>
 				</div>
 			</div>
 		</div>
