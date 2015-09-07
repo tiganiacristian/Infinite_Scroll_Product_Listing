@@ -11,14 +11,15 @@
 <body ng-app="myApp">
 	<div class="wrapped-central" ng-controller="MainController">
 		<div class="product-list">
-				<div class="product" ng-repeat="product in products | filter : search | limitTo : myLimit">
+				<div class="product" ng-repeat="product in products | filter : search | filter : priceRange| limitTo : myLimit">
 					<img class="product-image" src="{{product.imageUrl}}">
 					<p class="product-name">{{product.name}}</p>
 					<span class="product-price">{{product.price | currency: undefined:0}}</span>
 					<button class="add-to-cart" ng-click="addProduct(product) ">Add to chart</button>
 				</div>
 				<div id="loader">
-					<img src="images/loader.gif" ng-show="myLimit = products.length">
+					{{myLimit}}
+					<img src="images/loader.gif" ng-show="myLimit < products.length">
 					LOADING...
 				</div>
 		</div><!--
@@ -33,25 +34,23 @@
 				  <option value="jeans">Jeans</option>
 				</select>
 				<div class="min-value">
-					<label for="min-value">Min value:</label>
-					<input name="min-value" type="range" min="0" max="50" value="0" step="1" oninput="showValue(this.value)" />
-					<span id="range">0</span>
+					<label for="filterMinValue">Min value:</label>
+				    <input type="number"  value="0" min="0" max="600" name="filterMinValue" ng-model="filterMinValue" /> 
 				</div>
 				<div class="max-value">
-					<label for="max-value">Max value:</label>
-					<input name="min-value" type="range" min="50" max="100" value="100" step="1" oninput="showMaxValue(value)" />
-					<span id="rangeMax">100</span>
+					<label for="filterMaxValue">Max value:</label>
+					<input type="number"  value="600" min="0" max="600" name="filterMaxValue" ng-model="filterMaxValue" /><br><br>
 				</div>
 			</div>
 			<div class="cart">
 				<span class="cart-name">Cart</span>
 				<div class="cart-products" ng-repeat = "cartProduct in cartProducts">
 					<span class="cart-product-name">{{cartProduct.name}} <span> X {{cartProduct.count}}</span></span>
-					<span class="cart-product-price">{{cartProduct.price}}$</span>
+					<span class="cart-product-price">{{cartProduct.price * cartProduct.count}}$</span>
 				</div>
-				<br><span><span>Total:</span>{{ getTotal() }} </span>
+				<br><span>Total:</span><span class="total">{{ getTotal() | currency}} </span>
 				<div class="buy-button">
-					<button ng-click="buyProducts()">Buy it!</button>
+					<button id="playSound" ng-click="buyProducts()">Buy it!</button>
 				</div>
 			</div>
 		</div>

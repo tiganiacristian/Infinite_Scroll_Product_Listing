@@ -67,6 +67,7 @@
 
 .cart-product-price{
   text-align: right;
+  color: red;
 }
 
 .total-price-area{
@@ -81,5 +82,8 @@
   #loader{
     text-align: center;
   }
+  .total{
+    color: red;
+  }
 
-          
+
