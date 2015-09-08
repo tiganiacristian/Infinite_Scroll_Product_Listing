@@ -3,254 +3,18 @@ var myApp = angular.module('myApp',[]);
 
 
 myApp.controller('MainController', ['$scope','$window', '$http', function($scope, $window, $http) {
-  	$http.get("getData.php")
-    .success(function (response) {$scope.products = response.records;});
+  	$http.get("getDB.php")
+   //  .success(function (response) {$scope.products = $productsaa;});
+   .success(function(data, status, headers, config) {
+			$scope.products = data;
 
-  	var Products = {};
-	// Products.list = [
-	// 	{
-	// 		"id": "1",
-	// 		"imageUrl": "images/image1.jpg",
-	// 		"name": "Slapi Adibas",
-	// 		"price": "15",
-	// 		"category": "shoes"
-	// 	},
-	// 	{
-	// 		"id": "2",
-	// 		"imageUrl": "images/image2.jpg",
-	// 		"name": "Slapi Mike",
-	// 		"price": "22",
-	// 		"category": "shoes"
+		})
+		.error(function(data, status, headers, config) {
+			console.log("_GET error");
+		});
 
-	// 	},
-	// 	{
-	// 		"id": "3",
-	// 		"imageUrl": "images/shirt.jpg",
-	// 		"name": "Tricou Mike",
-	// 		"price": "29",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "4",
-	// 		"imageUrl": "images/jeans.jpg",
-	// 		"name": "Jeans Puna",
-	// 		"price": "56",
-	// 		"category": "jeans"
-	// 	},
-	// 	{
-	// 		"id": "5",
-	// 		"imageUrl": "images/image1.jpg",
-	// 		"name": "Slapi Puna",
-	// 		"price": "21",
-	// 		"category": "shoes"
-	// 	},
-	// 	{
-	// 		"id": "6",
-	// 		"imageUrl": "images/shoes.jpg",
-	// 		"name": "Adibasi Mike",
-	// 		"price": "44",
-	// 		"category": "shoes"
-
-	// 	},
-	// 	{
-	// 		"id": "7",
-	// 		"imageUrl": "images/shirt.jpg",
-	// 		"name": "Men Shirt",
-	// 		"price": "29",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "8",
-	// 		"imageUrl": "images/jacket.jpg",
-	// 		"name": "Geaca Puna",
-	// 		"price": "99",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "9",
-	// 		"imageUrl": "images/image1.jpg",
-	// 		"name": "Slapi Adibas",
-	// 		"price": "15",
-	// 		"category": "shoes"
-	// 	},
-	// 	{
-	// 		"id": "10",
-	// 		"imageUrl": "images/image2.jpg",
-	// 		"name": "Slapi Mike",
-	// 		"price": "22",
-	// 		"category": "shoes"
-
-	// 	},
-	// 	{
-	// 		"id": "11",
-	// 		"imageUrl": "images/shirt.jpg",
-	// 		"name": "Tricou Mike",
-	// 		"price": "29",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "12",
-	// 		"imageUrl": "images/jeans.jpg",
-	// 		"name": "Jeans Puna",
-	// 		"price": "56",
-	// 		"category": "jeans"
-	// 	},
-	// 	{
-	// 		"id": "13",
-	// 		"imageUrl": "images/image1.jpg",
-	// 		"name": "Slapi Puna",
-	// 		"price": "21",
-	// 		"category": "shoes"
-	// 	},
-	// 	{
-	// 		"id": "14",
-	// 		"imageUrl": "images/shoes.jpg",
-	// 		"name": "Adibasi Mike",
-	// 		"price": "44",
-	// 		"category": "shoes"
-
-	// 	},
-	// 	{
-	// 		"id": "15",
-	// 		"imageUrl": "images/shirt.jpg",
-	// 		"name": "Men Shirt",
-	// 		"price": "29",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "16",
-	// 		"imageUrl": "images/jacket.jpg",
-	// 		"name": "Geaca Puna",
-	// 		"price": "99",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "17",
-	// 		"imageUrl": "images/image1.jpg",
-	// 		"name": "Slapi Adibas",
-	// 		"price": "15",
-	// 		"category": "shoes"
-	// 	},
-	// 	{
-	// 		"id": "18",
-	// 		"imageUrl": "images/image2.jpg",
-	// 		"name": "Slapi Mike",
-	// 		"price": "22",
-	// 		"category": "shoes"
-
-	// 	},
-	// 	{
-	// 		"id": "19",
-	// 		"imageUrl": "images/shirt.jpg",
-	// 		"name": "Tricou Mike",
-	// 		"price": "29",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "20",
-	// 		"imageUrl": "images/jeans.jpg",
-	// 		"name": "Jeans Puna",
-	// 		"price": "56",
-	// 		"category": "jeans"
-	// 	},
-	// 	{
-	// 		"id": "21",
-	// 		"imageUrl": "images/image1.jpg",
-	// 		"name": "Slapi Puna",
-	// 		"price": "21",
-	// 		"category": "shoes"
-	// 	},
-	// 	{
-	// 		"id": "22",
-	// 		"imageUrl": "images/shoes.jpg",
-	// 		"name": "Adibasi Mike",
-	// 		"price": "44",
-	// 		"category": "shoes"
-
-	// 	},
-	// 	{
-	// 		"id": "23",
-	// 		"imageUrl": "images/shirt.jpg",
-	// 		"name": "Men Shirt",
-	// 		"price": "29",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "24",
-	// 		"imageUrl": "images/jacket.jpg",
-	// 		"name": "Geaca Puna",
-	// 		"price": "99",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "25",
-	// 		"imageUrl": "images/image1.jpg",
-	// 		"name": "Slapi Adibas",
-	// 		"price": "15",
-	// 		"category": "shoes"
-	// 	},
-	// 	{
-	// 		"id": "26",
-	// 		"imageUrl": "images/image2.jpg",
-	// 		"name": "Slapi Mike",
-	// 		"price": "22",
-	// 		"category": "shoes"
-
-	// 	},
-	// 	{
-	// 		"id": "27",
-	// 		"imageUrl": "images/shirt.jpg",
-	// 		"name": "Tricou Mike",
-	// 		"price": "29",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "28",
-	// 		"imageUrl": "images/jeans.jpg",
-	// 		"name": "Jeans Puna",
-	// 		"price": "56",
-	// 		"category": "jeans"
-	// 	},
-	// 	{
-	// 		"id": "29",
-	// 		"imageUrl": "images/image1.jpg",
-	// 		"name": "Slapi Puna",
-	// 		"price": "21",
-	// 		"category": "shoes"
-	// 	},
-	// 	{
-	// 		"id": "30",
-	// 		"imageUrl": "images/shoes.jpg",
-	// 		"name": "Adibasi Mike",
-	// 		"price": "44",
-	// 		"category": "shoes"
-
-	// 	},
-	// 	{
-	// 		"id": "31",
-	// 		"imageUrl": "images/shirt.jpg",
-	// 		"name": "Men Shirt",
-	// 		"price": "29",
-	// 		"category": "shirts & tops"
-	// 	},
-	// 	{
-	// 		"id": "32",
-	// 		"imageUrl": "images/jacket.jpg",
-	// 		"name": "Geaca Puna",
-	// 		"price": "99",
-	// 		"category": "shirts & tops"
-		
-
-	// 	}]
-	// $scope.products = Products.list
-
-
+	
 	$scope.myLimit = 20;
-	// $window = angular.element(window)
-	// $window.on('scroll', function () {   
-	// 	console.log('SCROLL')      
-	//    	$scope.myLimit +=3;
-	// });
 
 	angular.element($window).bind("scroll", function() {
 	    var windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
@@ -300,7 +64,7 @@ myApp.controller('MainController', ['$scope','$window', '$http', function($scope
 
 	$scope.buyProducts = function () {
 		$scope.cartProducts.length = 0;
-		window.alert('Succes!!!');
+		// window.alert('Succes!!!');
 	};
 
 
@@ -315,11 +79,14 @@ myApp.controller('MainController', ['$scope','$window', '$http', function($scope
 	    return total;
 	};
 
+
+	$scope.playSound = function (){
+		var audio = new Audio('images/kaching.mp3');
+		audio.play();
+	};
+
 }]);
 
 
-	// function ProductsCtrl($scope, Products){
-	// 	$scope.products = Products;
-	// }
 
 
