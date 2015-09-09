@@ -8,4 +8,3 @@
 		die("Error".$e->getMessage());
 	}
 
-?>

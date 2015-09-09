@@ -4,17 +4,17 @@ var myApp = angular.module('myApp',[]);
 
 myApp.controller('MainController', ['$scope','$window', '$http', function($scope, $window, $http) {
   	$http.get("getDB.php")
-   //  .success(function (response) {$scope.products = $productsaa;});
    .success(function(data, status, headers, config) {
-			$scope.products = data;
+		
+		$scope.products = data;
 
-		})
-		.error(function(data, status, headers, config) {
-			console.log("_GET error");
-		});
+	})
+	.error(function(data, status, headers, config) {
+		console.log("_GET error");
+	});
 
 	
-	$scope.myLimit = 20;
+	$scope.showLimit = 16;
 
 	angular.element($window).bind("scroll", function() {
 	    var windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
@@ -24,18 +24,30 @@ myApp.controller('MainController', ['$scope','$window', '$http', function($scope
 	    if (windowBottom >= docHeight) {
 	        $scope.increaseLimit();
 	        $scope.$apply();
-	        console.log($scope.myLimit);
+	        console.log($scope.showLimit);
 	    }
 	});
 	
 
 	$scope.increaseLimit = function(){
-		$scope.myLimit +=8;
+		$scope.showLimit +=8;
 	}
+	
+
+	
+
+	
+	$scope.filterMinValue = 0;
+	$scope.filterMaxValue = 99;
+	$scope.priceRange = function(product) {
+		return (parseInt(product['price']) >= $scope.filterMinValue && parseInt(product['price']) <= $scope.filterMaxValue);
+	};
 	
 
 	$scope.cartProducts = [];
 	var myCart = $scope.cartProducts;
+
+
 	$scope.addProduct= function (product) {
 		var i;
 		var myCart = $scope.cartProducts;
@@ -47,37 +59,56 @@ myApp.controller('MainController', ['$scope','$window', '$http', function($scope
 			}
 		}
 
-
 		product.count = 1
 		myCart.push(product)
 
  	}
 
-	
-	$scope.filterMinValue = 0;
-	$scope.filterMaxValue = 99;
-	$scope.priceRange = function(product) {
-		return (parseInt(product['price']) >= $scope.filterMinValue && parseInt(product['price']) <= $scope.filterMaxValue);
+
+	$scope.getTotal = function () {
+		var total = 0;
+		var i, product;
+
+		for(i = 0; i < $scope.cartProducts.length; i++){
+
+	        product = $scope.cartProducts[i];
+	        total += (parseInt(product.price*product.count));
+	      
+	    }
+	    return total;
 	};
-	
 
+	$scope.pushDB = function(){
+		var j;
+		// var productlistdb = [];
+		for (j = 0; j < $scope.cartProducts.length; j++){
+			// product = [];
+			// product.push($scope.cartProducts[j].name)
+			// product.push($scope.cartProducts[j].count)
+			// produse.push(product)
+			name = $scope.cartProducts[j].name
+			count = $scope.cartProducts[j].count
+			insertData(name, count)
+			// console.log(produse)
+	    };
+	    	
 
-	$scope.buyProducts = function () {
+	}	
+	insertData = function(name,  count){
+		$http.post("pushDB.php",{'name': name , 'count': count})		
+        	.success(function(data, status, headers, config){
+	            console.log("inserted Successfully");
+        	});
+	}
+
+	$scope.emptyCart = function () {
+
 		$scope.cartProducts.length = 0;
 		// window.alert('Succes!!!');
 	};
 
 
-	$scope.getTotal = function () {
-		var total = 0;
-		var i, product;
-		for(i = 0; i < $scope.cartProducts.length; i++){
 
-	        product = $scope.cartProducts[i];
-	        total += (parseInt(product.price*product.count));
-	    }
-	    return total;
-	};
 
 
 	$scope.playSound = function (){

@@ -11,14 +11,14 @@
 <body ng-app="myApp">
 	<div class="wrapped-central" ng-controller="MainController">
 		<div class="product-list">
-				<div class="product" ng-repeat="product in products | filter : search | filter : priceRange| limitTo : myLimit">
+				<div class="product" ng-repeat="product in products | filter : search | filter : priceRange| limitTo : showLimit">
 					<img class="product-image" src="{{product.imageUrl}}">
 					<p class="product-name">{{product.name}}</p>
 					<span class="product-price">{{product.price | currency: undefined:0}}</span>
 					<button class="add-to-cart" ng-click="addProduct(product) ">Add to chart</button>
 				</div>
 				<div id="loader">
-					<img src="images/loader.gif" ng-show="myLimit < products.length">
+					<img src="images/loader.gif" ng-show="showLimit < products.length">
 					LOADING...
 				</div>
 		</div><!--
@@ -49,7 +49,7 @@
 				</div>
 				<br><span>Total:</span><span class="total">{{ getTotal() | currency}} </span>
 				<div class="buy-button">
-					<button id="playSound" ng-click=" playSound(images/kaching.mp3); buyProducts();">Buy it!</button>
+					<button id="playSound" ng-click="pushDB(); playSound(images/kaching.mp3); emptyCart();">Buy it!</button>
 				</div>
 			</div>
 		</div>
