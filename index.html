@@ -34,11 +34,13 @@
 				</select>
 				<div class="min-value">
 					<label for="filterMinValue">Min value:</label>
-				    <input type="number"  value="0" min="0" max="600" name="filterMinValue" ng-model="filterMinValue" /> 
+				    <input type="range"  value="0" min="0" max="100" name="filterMinValue" id= "filterMinValue" ng-model="filterMinValue" oninput="amount.value = filterMinValue.value" /> 
+				    <output name="amount" id="amount" for="filterMinValue">0</output>
 				</div>
 				<div class="max-value">
 					<label for="filterMaxValue">Max value:</label>
-					<input type="number"  value="600" min="0" max="600" name="filterMaxValue" ng-model="filterMaxValue" /><br><br>
+					<input type="range"  value="100" min="0" max="100" name="filterMaxValue" id="filterMaxValue" ng-model="filterMaxValue" oninput="MaxAmount.value = filterMaxValue.value" />
+					<output name="MaxAmount" id="MaxAmount" for="filterMaxValue">100</output><br><br>
 				</div>
 			</div>
 			<div class="cart">

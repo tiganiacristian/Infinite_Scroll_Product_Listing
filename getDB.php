@@ -2,7 +2,9 @@
 
 	require_once('connectDB.php');
 
-	$query = $connect->query("SELECT * FROM productlist");
+	$limit = $_GET['showLimit'];
+
+	$query = $connect->query("SELECT * FROM productlist LIMIT  $limit, 16");
 
 	$data = array();
 	while($row = $query->fetch()) {

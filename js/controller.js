@@ -2,19 +2,29 @@ var myApp = angular.module('myApp',[]);
 
 
 
-myApp.controller('MainController', ['$scope','$window', '$http', function($scope, $window, $http) {
-  	$http.get("getDB.php")
-   .success(function(data, status, headers, config) {
-		
-		$scope.products = data;
+myApp.controller('MainController', ['$scope','$window', '$http','$q', function($scope, $window, $http, $q) {
+ 	
 
-	})
-	.error(function(data, status, headers, config) {
-		console.log("_GET error");
-	});
+    var vm = this;
+	vm.limit = 0;
+	$scope.products = [];
+	$scope.fetchData = function(limit){
+	  	$http
+	  	.get("getDB.php", {params : {showLimit : vm.limit} })
+	   	.success(function(data, status, headers, config) {
+	   	
+			$scope.products.push.apply($scope.products, data);
 
+		})
+		.error(function(data, status, headers, config) {
+			console.log("_GET error");
+		});
+	}
 	
-	$scope.showLimit = 16;
+
+	$scope.fetchData(vm.limit);
+			
+		
 
 	angular.element($window).bind("scroll", function() {
 	    var windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
@@ -22,19 +32,15 @@ myApp.controller('MainController', ['$scope','$window', '$http', function($scope
 	    var docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
 	    windowBottom = windowHeight + window.pageYOffset;
 	    if (windowBottom >= docHeight) {
-	        $scope.increaseLimit();
-	        $scope.$apply();
-	        console.log($scope.showLimit);
+	        
+	        console.log(vm.limit);
+	        vm.limit += 16;
+	        $scope.fetchData(vm.limit);
+
+
 	    }
 	});
-	
 
-	$scope.increaseLimit = function(){
-		$scope.showLimit +=8;
-	}
-	
-
-	
 
 	
 	$scope.filterMinValue = 0;
@@ -80,22 +86,23 @@ myApp.controller('MainController', ['$scope','$window', '$http', function($scope
 
 	$scope.pushDB = function(){
 		var j;
-		// var productlistdb = [];
+		var Cart = [];
 		for (j = 0; j < $scope.cartProducts.length; j++){
-			// product = [];
-			// product.push($scope.cartProducts[j].name)
-			// product.push($scope.cartProducts[j].count)
-			// produse.push(product)
+		
 			name = $scope.cartProducts[j].name
 			count = $scope.cartProducts[j].count
-			insertData(name, count)
-			// console.log(produse)
-	    };
-	    	
+			Cart.push (name, count);
 
+	    };
+	    
+	    
+	    	
+	    insertData(Cart.toString())
 	}	
-	insertData = function(name,  count){
-		$http.post("pushDB.php",{'name': name , 'count': count})		
+	
+
+	insertData = function(clientCart){
+		$http.post("pushDB.php",{'clientCart': clientCart })		
         	.success(function(data, status, headers, config){
 	            console.log("inserted Successfully");
         	});
