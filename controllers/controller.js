@@ -10,7 +10,7 @@ myApp.controller('MainController', ['$scope','$window', '$http','$q', function($
 	$scope.products = [];
 	$scope.fetchData = function(limit){
 	  	$http
-	  	.get("getDB.php", {params : {showLimit : vm.limit} })
+	  	.get("database/getDB.php", {params : {showLimit : vm.limit} })
 	   	.success(function(data, status, headers, config) {
 	   	
 			$scope.products.push.apply($scope.products, data);
@@ -102,7 +102,7 @@ myApp.controller('MainController', ['$scope','$window', '$http','$q', function($
 	
 
 	insertData = function(clientCart){
-		$http.post("pushDB.php",{'clientCart': clientCart })		
+		$http.post("database/pushDB.php",{'clientCart': clientCart })		
         	.success(function(data, status, headers, config){
 	            console.log("inserted Successfully");
         	});
