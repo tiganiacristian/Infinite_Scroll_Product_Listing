@@ -37,6 +37,7 @@
 .filter{
   width: 100%;
   border: 1px solid black;
+  height: 200px;
 }
 
 .filter-name{
@@ -86,5 +87,46 @@
   .total{
     color: red;
   }
+
+
+
+.base-line {
+    width: 150px;
+    height: 5px;
+    margin-top: 53px;
+    margin-left: 20px;
+    position: relative;
+    background-color: black;
+}
+
+
+.primary-line {
+    max-width: 100%;
+    width: 60%;
+    height: 10px;
+    
+    position: relative;
+}
+
+.circle-line {
+    position: absolute;
+    width: 7px;
+    height: 14px;
+    background-color: inherit;
+    border-radius: 100%;
+    top: -5px;
+    left: 0%;
+    cursor:move;
+}
+
+.circle-line-second {
+    position: absolute;
+    width: 7px;
+    height: 14px;
+    background-color: inherit;
+    border-radius: 100%;
+    top: -5px;
+    left: 100%;
+}
 
 

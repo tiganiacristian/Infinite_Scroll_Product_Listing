@@ -12,7 +12,7 @@ myApp.controller('MainController', ['$scope','$window', '$http','$q', function($
 	  	$http
 	  	.get("database/getDB.php", {params : {showLimit : vm.limit} })
 	   	.success(function(data, status, headers, config) {
-	   		console.log(data);
+	   	
 			$scope.products.push.apply($scope.products, data);
 
 		})
@@ -112,48 +112,6 @@ myApp.controller('MainController', ['$scope','$window', '$http','$q', function($
 
 		$scope.cartProducts.length = 0;
 		// window.alert('Succes!!!');
-	};
-	
-
-	var lala = document.getElementsByClassName('circle-line');
-	console.log(lala, '\asdasdasdasd');
-	$scope.selected = null, // Object of the element to be moved
-    $scope.x_pos = 0, // Stores x & y coordinates of the mouse pointer
-    $scope.x_elem = 0; // Stores top, left values (edge) of the element
-    $scope.customStyle = null;
-
-	// Will be called when user starts dragging an element
-	function _drag_init(elem) {debugger
-	    // Store the object of the element which needs to be moved
-	    debugger
-	    $scope.selected = elem;
-	    $scope.x_elem = $scope.x_pos - selected.offsetLeft;
-	}
-
-	// Will be called when user dragging an element
-	function _move_elem(e) {
-	    $scope.x_pos = document.all ? window.event.clientX : e.pageX;
-	    if ($scope.selected !== null) {
-	        cLeft = ($scope.x_pos - $scope.x_elem) + 'px';
-	        console.log(cLeft);
-	        
-	    }
-	}
-
-	// Destroy the object when we are done
-	function _destroy() {
-	    $scope.selected = null;
-	}
-
-	// Bind the functions...
-
-
-	document.onmousemove = _move_elem;
-	document.onmouseup = _destroy;
-	$scope.onmousedown = function () {
-		console.log("lalala");
-	    _drag_init(this);
-	    return false;
 	};
 
 

@@ -23,7 +23,13 @@
 				</div>
 		</div><!--
 		--><div class="sidebar">
-			<div class="filter">
+			  <div class="filter">
+                    <div class="base-line">
+                            <div class="circle-line" ng-click="onmousedown()" ng-style="{ 'left' : cLeft}"></div>
+                            <div class="circle-line-second"></div>
+                    </div>
+                
+			<!-- <div class="filter">
 				<span class="filter-name">Filters</span>
 				<label for="filter-category">Category:</label>
 				<select data-ng-model="search.category" name="filter-category">
@@ -41,7 +47,8 @@
 					<label for="filterMaxValue">Max value:</label>
 					<input type="range"  value="100" min="0" max="100" name="filterMaxValue" id="filterMaxValue" ng-model="filterMaxValue" oninput="MaxAmount.value = filterMaxValue.value" />
 					<output name="MaxAmount" id="MaxAmount" for="filterMaxValue">100</output><br><br>
-				</div>
+				</div> -->
+			  </div>
 			</div>
 			<div class="cart">
 				<span class="cart-name">Cart</span>

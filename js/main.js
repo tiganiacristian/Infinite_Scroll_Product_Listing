@@ -9,8 +9,13 @@ function showMaxValue(newValue)
 	
 }
 
-function playIt()
+function playIt()	
 {
    document.getElementById("play").innerHTML="<buy-button src='kaching.mp3' autostart=true loop=false volume=100 hidden=true>";
    return true;
 }
+
+
+
+
+
